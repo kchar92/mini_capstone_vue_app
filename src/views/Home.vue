@@ -4,6 +4,8 @@
     <div v-for="product in products">
       <p> {{ product.name }}</p>
       <p> {{ product.description }}</p>
+      <p> {{ product.image_url }} </p>
+      <img v-bind:src="product.image_url">
       <hr>
     </div>
     
