@@ -23,6 +23,7 @@
         <p>description: <input type="text" v-model="product.description"></p>
         <p>price: <input type="text" v-model="product.price"></p>
         <button v-on:click="updateProduct(product)">Update</button>
+        <button v-on:click="destroyProduct(product)">Destroy</button>
 
       </div>
 
@@ -94,6 +95,16 @@ export default {
         theProduct.name = response.data.name;
         theProduct.description = response.data.description;
         theProduct.price = response.data.price;
+      });
+    },
+    destroyProduct: function(theProduct) {
+      console.log(theProduct);
+
+      axios.delete(`/api/products/${theProduct.id}`).then(response => {
+        console.log(response.data);
+        var index = this.products.indexOf(theProduct);
+        console.log(index);
+        this.products.splice(index, 1);
       });
     }
   }
