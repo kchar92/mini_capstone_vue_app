@@ -18,7 +18,14 @@
 
       <div v-if="currentProduct === product">
         <p>price: {{ product.price }}</p>
+
+        <p>name: <input type="text" v-model="product.name"></p>
+        <p>description: <input type="text" v-model="product.description"></p>
+        <p>price: <input type="text" v-model="product.price"></p>
+        <button v-on:click="updateProduct(product)">Update</button>
+
       </div>
+
       <hr>
     </div>
 
@@ -71,6 +78,23 @@ export default {
       console.log(theProduct);
       this.currentProduct = theProduct;
       console.log('toggling info');
+    },
+    updateProduct: function(theProduct) {
+      console.log("updating product");
+      console.log(theProduct);
+
+      var params = {
+        name: theProduct.name,
+        description: theProduct.description,
+        price: theProduct.price
+      };
+
+      axios.patch(`/api/products/${theProduct.id}`, params).then(response => {
+        console.log(response.data);
+        theProduct.name = response.data.name;
+        theProduct.description = response.data.description;
+        theProduct.price = response.data.price;
+      });
     }
   }
 };
