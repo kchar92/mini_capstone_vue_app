@@ -13,8 +13,15 @@
       <p> {{ product.description }}</p>
       <p> {{ product.image_url }} </p>
       <img v-bind:src="product.image_url">
+
+      <button v-on:click="toggleInfo(product)">See more</button>
+
+      <div v-if="currentProduct === product">
+        <p>price: {{ product.price }}</p>
+      </div>
       <hr>
     </div>
+
     
   </div>
 </template>
@@ -31,7 +38,8 @@ export default {
       products: [],
       productName: "",
       productDescription: "",
-      productPrice: ""
+      productPrice: "",
+      currentProduct: {}
     };
   },
   created: function() {
@@ -58,6 +66,11 @@ export default {
         this.productDescription = "";
         this.productPrice = "";
       });
+    },
+    toggleInfo: function(theProduct) {
+      console.log(theProduct);
+      this.currentProduct = theProduct;
+      console.log('toggling info');
     }
   }
 };
